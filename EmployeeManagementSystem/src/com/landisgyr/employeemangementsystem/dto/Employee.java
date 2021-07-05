@@ -1,9 +1,20 @@
 package com.landisgyr.employeemangementsystem.dto;
 
-import lombok.Data;
+import java.util.Objects;
 
-@Data
-public class Employee extends Person {
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
+@Getter
+@Setter
+@ToString
+
+
+public class Employee {//extends Person {
 // all fields should be private except constants.
 	private String empId;
 	
@@ -20,7 +31,7 @@ public class Employee extends Person {
 		this.contactNumber = contactNumber;
 	}
 	public Employee() {
-		super("","");
+		//super("","");
 		// TODO Auto-generated constructor stub
 		System.out.println("hello from Employee");
 	}
@@ -34,7 +45,7 @@ public class Employee extends Person {
 		this.location = location;
 	}
 	public Employee(String empId, String empFirstName, String empLastName, float empSalary) {
-		super(empFirstName,empLastName);
+		//super(empFirstName,empLastName);
 		this.empId = empId;
 		//super.setEmpFirstName(empFirstName);
 		//super.setEmpLastName(empLastName);
@@ -44,12 +55,32 @@ public class Employee extends Person {
 	public float calculateSalary() {
 		return this.empSalary + 200;
 	}
-	
+
 	@Override
-		public String getDetails() {
-			// TODO Auto-generated method stub
-			return "details";
-		}
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		// down casting
+		// it will behave like an employee
+		// casting
+		Object obj2 = this;
+		
+		// it will behave like an Object==> we can access all contents from Object &
+		//overridden methods from Object
+		
+		
+		return Objects.equals(contactNumber, other.contactNumber)
+				&& Objects.equals(currentAddress, other.currentAddress) && Objects.equals(empId, other.empId)
+				&& Float.floatToIntBits(empSalary) == Float.floatToIntBits(other.empSalary)
+				&& Objects.equals(location, other.location) && Objects.equals(permanantAddress, other.permanantAddress);
+	}
+	
+	
 
 	
 }

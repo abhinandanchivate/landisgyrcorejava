@@ -1,34 +1,24 @@
 package com.landisgyr.employeemangementsystem.repository;
 
+import java.util.ArrayList;
+
+
 import com.landisgyr.employeemangementsystem.dto.Employee;
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
-	private Employee employees[]= new Employee[10];
-	// it will give us 10 ref.
-	static int counter = 0;
-	//@Purpose : to add the employee into array
-	// if the size is full then it should return arrayFull if not it should 
-	// add the employee in an array then it should return success
-	// if any problem is there then it should return problem
+	ArrayList<Employee> employees = new ArrayList<>();
+	
 	public String addEmployee(Employee employee) {
-		// length of an array 
-		// occupancy of an array.
+	
+		employees.add(employee);
+		return "success";
 		
-		if(counter<10) {
-			// we can allow adding the object in an array
-			employees[counter] = employee;
-			counter++;
-			return "success";
-		}
-		else {
-			return "arrayisFull";
-		}
-		// if not it should return a message array full.
 	}
 	
 	public Employee[] getEmployees() {
-		return employees;
+		Employee[] employees2 = new Employee[employees.size()];
+		return employees.toArray(employees2);
 	}
 	
 	public Employee getEmployeeById(String empId) {
