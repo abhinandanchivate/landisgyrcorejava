@@ -3,11 +3,10 @@ package com.landisgyr.employeemangementsystem.dto;
 import lombok.Data;
 
 @Data
-public class Employee {
+public class Employee extends Person {
 // all fields should be private except constants.
 	private String empId;
-	private String empFirstName;
-	private String empLastName;
+	
 	protected float empSalary;
 	private String permanantAddress;
 	private String currentAddress;
@@ -21,6 +20,7 @@ public class Employee {
 		this.contactNumber = contactNumber;
 	}
 	public Employee() {
+		super("","");
 		// TODO Auto-generated constructor stub
 		System.out.println("hello from Employee");
 	}
@@ -34,16 +34,22 @@ public class Employee {
 		this.location = location;
 	}
 	public Employee(String empId, String empFirstName, String empLastName, float empSalary) {
-		super();
+		super(empFirstName,empLastName);
 		this.empId = empId;
-		this.empFirstName = empFirstName;
-		this.empLastName = empLastName;
+		//super.setEmpFirstName(empFirstName);
+		//super.setEmpLastName(empLastName);
 		this.empSalary = empSalary;
 	}
 
 	public float calculateSalary() {
 		return this.empSalary + 200;
 	}
+	
+	@Override
+		public String getDetails() {
+			// TODO Auto-generated method stub
+			return "details";
+		}
 
 	
 }

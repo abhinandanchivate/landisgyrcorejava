@@ -2,6 +2,7 @@ package com.landisgyr.employeemangementsystem;
 
 import com.landisgyr.employeemangementsystem.dto.Employee;
 import com.landisgyr.employeemangementsystem.service.EmployeeService;
+import com.landisgyr.employeemangementsystem.service.EmployeeServiceImpl;
 
 public class Main {
 	
@@ -22,7 +23,7 @@ public class Main {
 //		System.out.println(employee.toString());
 		
 		
-		EmployeeService employeeService = new EmployeeService();
+		EmployeeService employeeService = new EmployeeServiceImpl();
 		
 		for(int i =0;i<=10;i++) {
 			Employee employee = new Employee("ab001","abhi","chivate",123.0f,"bangalore","1234567890");// DC // can u accept the values @ the RT?
