@@ -1,13 +1,18 @@
 package com.landisgyr.employeemangementsystem.repository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeSet;
 
 import com.landisgyr.employeemangementsystem.dto.Employee;
+import com.landisgyr.employeemangementsystem.utils.IdComparator;
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
-	ArrayList<Employee> employees = new ArrayList<>();
+	TreeSet<Employee> employees = new TreeSet<>(new IdComparator());
 	
 	public String addEmployee(Employee employee) {
 	
@@ -69,6 +74,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 	@Override
 	public List<Employee> getEmployees3() {
 		// TODO Auto-generated method stub
-		return employees;
+		return new ArrayList<>(employees);
 	}
 }

@@ -14,7 +14,8 @@ import lombok.experimental.Accessors;
 @ToString
 
 
-public class Employee {//extends Person {
+// @Data
+public class Employee { // implements Comparable<Employee> {//extends Person {
 // all fields should be private except constants.
 	private String empId;
 	
@@ -55,30 +56,12 @@ public class Employee {//extends Person {
 	public float calculateSalary() {
 		return this.empSalary + 200;
 	}
+//	@Override
+//	public int compareTo(Employee o) {
+//		// TODO Auto-generated method stub
+//		return this.empId.compareTo(o.empId);
+//	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Employee other = (Employee) obj;
-		// down casting
-		// it will behave like an employee
-		// casting
-		Object obj2 = this;
-		
-		// it will behave like an Object==> we can access all contents from Object &
-		//overridden methods from Object
-		
-		
-		return Objects.equals(contactNumber, other.contactNumber)
-				&& Objects.equals(currentAddress, other.currentAddress) && Objects.equals(empId, other.empId)
-				&& Float.floatToIntBits(empSalary) == Float.floatToIntBits(other.empSalary)
-				&& Objects.equals(location, other.location) && Objects.equals(permanantAddress, other.permanantAddress);
-	}
 	
 	
 
