@@ -1,7 +1,7 @@
 package com.landisgyr.employeemangementsystem.repository;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 import com.landisgyr.employeemangementsystem.dto.Employee;
 
@@ -34,15 +34,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 	
 	// delete 
 	public String deleteEmployeeById(String empId) {
-		for (int i = 0; i < employees.length; i++) {
-			
-			if(empId.equals(employees[i].getEmpId())) {
-				
-				//Employee employee = employees[i];
-				employees[i] = null;
-				return "success";//employee.getEmpId();
-			}
-		}
+		
 		return "not found";
 		
 	}
@@ -55,5 +47,18 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 	
 	public String deleteAllEmployees() {
 		return null; // should delete all empls assignment
+	}
+
+	@Override
+	public Object[] getEmployees2() {
+		// TODO Auto-generated method stub
+		return employees.toArray();
+		
+	}
+
+	@Override
+	public List<Employee> getEmployees3() {
+		// TODO Auto-generated method stub
+		return employees;
 	}
 }

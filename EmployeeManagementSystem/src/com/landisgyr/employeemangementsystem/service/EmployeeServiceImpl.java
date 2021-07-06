@@ -1,5 +1,7 @@
 package com.landisgyr.employeemangementsystem.service;
 
+import java.util.List;
+
 import com.landisgyr.employeemangementsystem.dto.Employee;
 import com.landisgyr.employeemangementsystem.repository.EmployeeRepository;
 import com.landisgyr.employeemangementsystem.repository.EmployeeRepositoryImpl;
@@ -40,5 +42,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public String deleteAllEmployees() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Object[] getEmployees2() {
+		// TODO Auto-generated method stub
+		return employeeRepository.getEmployees2();
+	}
+
+	@Override
+	public List<Employee> getEmployees3() {
+		// TODO Auto-generated method stub
+		return employeeRepository.getEmployees3();
 	}
 }
