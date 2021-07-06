@@ -35,7 +35,12 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 	// delete 
 	public String deleteEmployeeById(String empId) {
 		
+		if(employees.remove(this.getEmployeeById(empId))) {
+			return "success";
+		}
+		else {
 		return "not found";
+		}
 		
 	}
 	
@@ -46,7 +51,12 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 	}
 	
 	public String deleteAllEmployees() {
-		return null; // should delete all empls assignment
+		if(employees.size()>=1) {
+			employees.clear();
+			return "success";
+		}
+		else
+		return "empty"; // should delete all empls assignment
 	}
 
 	@Override
