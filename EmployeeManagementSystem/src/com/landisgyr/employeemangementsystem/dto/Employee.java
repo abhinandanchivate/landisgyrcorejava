@@ -11,11 +11,11 @@ import lombok.experimental.Accessors;
 
 @Getter
 @Setter
-//@ToString
+@ToString
 
 
 // @Data
-public class Employee { // implements Comparable<Employee> {//extends Person {
+public class Employee {//implements Comparable<Employee> {//extends Person {
 // all fields should be private except constants.
 	private String empId;
 	
