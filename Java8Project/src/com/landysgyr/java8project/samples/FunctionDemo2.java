@@ -10,6 +10,12 @@ public class FunctionDemo2 {
 		Function<Integer, Integer> function2= x->x*2;
 		
 		Integer result = function.andThen(function2).apply("abhi");
+		//(T t) -> function2.apply(apply(t));
+		//(T t) -> function2.apply(4);
+		//(T t) -> 8
+		// function2apply method will provide the number *2 ka result.
+		// function apply will return lenght of string.
+		
 		System.out.println(result);
 		
 		
