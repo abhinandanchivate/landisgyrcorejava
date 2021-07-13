@@ -19,6 +19,8 @@ import lombok.experimental.Accessors;
 public class Employee {//implements Comparable<Employee> {//extends Person {
 // all fields should be private except constants.
 	private String empId;
+	private String empFirstName;
+	private String empLastName;
 	
 	protected float empSalary;
 	private String permanantAddress;
@@ -96,6 +98,18 @@ public class Employee {//implements Comparable<Employee> {//extends Person {
 	}
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	public String getEmpFirstName() {
+		return empFirstName;
+	}
+	public void setEmpFirstName(String empFirstName) {
+		this.empFirstName = empFirstName;
+	}
+	public String getEmpLastName() {
+		return empLastName;
+	}
+	public void setEmpLastName(String empLastName) {
+		this.empLastName = empLastName;
 	}
 //	@Override
 //	public int compareTo(Employee o) {
