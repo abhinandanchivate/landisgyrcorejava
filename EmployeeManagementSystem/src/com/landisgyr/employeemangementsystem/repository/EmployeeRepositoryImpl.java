@@ -17,10 +17,10 @@ import com.landisgyr.employeemangementsystem.utils.IdComparator;
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
-	//TreeSet<Employee> employees = new TreeSet<>(new IdComparator());
-	
+	// TreeSet<Employee> employees = new TreeSet<>(new IdComparator());
+
 	public String addEmployee(Employee employee) {
-	
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		String insertQuery = "insert into employee (empid,empfirstname,emplastname,empsalary) values(?,?,?,?)";
@@ -33,12 +33,11 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 			preparedStatement.setString(3, employee.getEmpLastName());
 			preparedStatement.setFloat(4, employee.getEmpSalary());
 			int res = preparedStatement.executeUpdate();
-			
-			if(res>=1) {
+
+			if (res >= 1) {
 				connection.commit();
 				return "success";
-			}
-			else 
+			} else
 				return "fail";
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -49,15 +48,13 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}
-		finally {
-		
+		} finally {
+
 			DBUtils.closeConnection(connection);
 		}
-		
-		
+
 		return "success";
-		
+
 	}
 
 	@Override
@@ -76,25 +73,34 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 	public List<Employee> getEmployees3() {
 		// TODO Auto-generated method stub
 		Connection connection = null;
+		List<Employee> employees = new ArrayList<>();
 		PreparedStatement preparedStatement = null;
 		String insertQuery = "select * from employee";
 		try {
 			connection = DBUtils.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(insertQuery);
-			
+
 			ResultSet res = preparedStatement.executeQuery();
 			// all records are stored in resultset obejct
 			// cursor is available to traverse the result set .
 			// initially cursor / traverser will be placed just before the 1st record.
-			// when we will call next method for the 1st time then it will start traversing from 1st record.
-			
-			while(res.next()) {
-				
+			// when we will call next method for the 1st time then it will start traversing
+			// from 1st record.
+
+			while (res.next()) {
+
+				Employee employee = new Employee();
+				employee.setEmpId(res.getString("empid"));// column name
+				// here we can provide the column number as well but we should prefer that.
+				employee.setEmpFirstName(res.getString("empfirstname"));
+				employee.setEmpLastName(res.getString("emplastname"));
+				employee.setEmpSalary(res.getFloat("empsalary"));
+				employees.add(employee);
+
 			}
-			
-		
-			
+			return employees;
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,12 +110,11 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}
-		finally {
-		
+		} finally {
+
 			DBUtils.closeConnection(connection);
 		}
-		
+		return employees;
 
 	}
 
@@ -136,6 +141,5 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
 }
