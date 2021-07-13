@@ -3,6 +3,7 @@ package com.landisgyr.employeemangementsystem.service;
 import java.util.List;
 
 import com.landisgyr.employeemangementsystem.dto.Employee;
+import com.landisgyr.employeemangementsystem.exception.InvalidIdException;
 import com.landisgyr.employeemangementsystem.repository.EmployeeRepository;
 import com.landisgyr.employeemangementsystem.repository.EmployeeRepositoryImpl;
 
@@ -10,7 +11,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	EmployeeRepository employeeRepository  = new EmployeeRepositoryImpl();
 	// have we created repo object.
-	public String addEmployee(Employee employee) {
+	public String addEmployee(Employee employee) throws InvalidIdException {
 		// background verification
 		// criminal cross check 
 		// address verification

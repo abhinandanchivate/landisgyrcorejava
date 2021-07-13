@@ -1,6 +1,7 @@
 package com.landisgyr.employeemangementsystem;
 
 import com.landisgyr.employeemangementsystem.dto.Employee;
+import com.landisgyr.employeemangementsystem.exception.InvalidIdException;
 import com.landisgyr.employeemangementsystem.service.EmployeeService;
 import com.landisgyr.employeemangementsystem.service.EmployeeServiceImpl;
 
@@ -26,9 +27,21 @@ public class Main {
 		EmployeeService employeeService = new EmployeeServiceImpl();
 		
 		for(int i =0;i<=10;i++) {
-			Employee employee = new Employee("ab001","abhi","chivate",123.0f,"bangalore","1234567890");// DC // can u accept the values @ the RT?
+			Employee employee = null;
+			try {
+				employee = new Employee("ab001","abhi","chivate",123.0f,"bangalore","1234567890");
+			} catch (InvalidIdException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}// DC // can u accept the values @ the RT?
 			
-		String result = employeeService.addEmployee(employee);
+		String result = null;
+		try {
+			result = employeeService.addEmployee(employee);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(result);
 		}
 		Employee[] employees = employeeService.getEmployees();

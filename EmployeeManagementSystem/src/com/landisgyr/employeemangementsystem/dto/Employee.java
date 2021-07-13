@@ -2,6 +2,8 @@ package com.landisgyr.employeemangementsystem.dto;
 
 import java.util.Objects;
 
+import com.landisgyr.employeemangementsystem.exception.InvalidIdException;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,8 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-@Getter
-@Setter
+
 @ToString
 
 
@@ -26,7 +27,7 @@ public class Employee {//implements Comparable<Employee> {//extends Person {
 	private String location;
 	// parameterized constructor.// can we provide the values
 	public Employee(String empId, String empFirstName, String empLastName, float empSalary, String permanantAddress,
-			String contactNumber) {
+			String contactNumber) throws InvalidIdException {
 		this(empId, empFirstName, empLastName, empSalary);
 		this.permanantAddress = permanantAddress;
 		this.contactNumber = contactNumber;
@@ -37,7 +38,7 @@ public class Employee {//implements Comparable<Employee> {//extends Person {
 		System.out.println("hello from Employee");
 	}
 	public Employee(String empId, String empFirstName, String empLastName, float empSalary, String permanantAddress,
-			String currentAddress, String contactNumber, String location) {
+			String currentAddress, String contactNumber, String location) throws InvalidIdException {
 //		super();
 	this(empId, empFirstName, empLastName, empSalary);
 		this.permanantAddress = permanantAddress;
@@ -45,9 +46,9 @@ public class Employee {//implements Comparable<Employee> {//extends Person {
 		this.contactNumber = contactNumber;
 		this.location = location;
 	}
-	public Employee(String empId, String empFirstName, String empLastName, float empSalary) {
+	public Employee(String empId, String empFirstName, String empLastName, float empSalary) throws InvalidIdException {
 		//super(empFirstName,empLastName);
-		this.empId = empId;
+	this.setEmpId(empId);
 		//super.setEmpFirstName(empFirstName);
 		//super.setEmpLastName(empLastName);
 		this.empSalary = empSalary;
@@ -55,6 +56,46 @@ public class Employee {//implements Comparable<Employee> {//extends Person {
 
 	public float calculateSalary() {
 		return this.empSalary + 200;
+	}
+	public String getEmpId() {
+		return empId;
+	}
+	public void setEmpId(String empId){
+		if(empId.isEmpty()||empId.isBlank()) {
+			throw new InvalidIdException("Id is blank or empty");
+		}
+		else
+		this.empId = empId;
+	}
+	public float getEmpSalary() {
+		return empSalary;
+	}
+	public void setEmpSalary(float empSalary) {
+		this.empSalary = empSalary;
+	}
+	public String getPermanantAddress() {
+		return permanantAddress;
+	}
+	public void setPermanantAddress(String permanantAddress) {
+		this.permanantAddress = permanantAddress;
+	}
+	public String getCurrentAddress() {
+		return currentAddress;
+	}
+	public void setCurrentAddress(String currentAddress) {
+		this.currentAddress = currentAddress;
+	}
+	public String getContactNumber() {
+		return contactNumber;
+	}
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
 	}
 //	@Override
 //	public int compareTo(Employee o) {

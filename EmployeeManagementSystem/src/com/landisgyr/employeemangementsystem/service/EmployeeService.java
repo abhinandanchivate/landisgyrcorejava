@@ -3,9 +3,10 @@ package com.landisgyr.employeemangementsystem.service;
 import java.util.List;
 
 import com.landisgyr.employeemangementsystem.dto.Employee;
+import com.landisgyr.employeemangementsystem.exception.InvalidIdException;
 
 public interface EmployeeService {
-	public String addEmployee(Employee employee);
+	public String addEmployee(Employee employee) throws Exception;
 	public Employee[] getEmployees() ;
 	public Object[] getEmployees2() ;
 	public List<Employee> getEmployees3() ;
