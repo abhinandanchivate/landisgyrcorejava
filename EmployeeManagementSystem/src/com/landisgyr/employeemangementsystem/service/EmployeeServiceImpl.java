@@ -1,6 +1,7 @@
 package com.landisgyr.employeemangementsystem.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.landisgyr.employeemangementsystem.dto.Employee;
 import com.landisgyr.employeemangementsystem.exception.InvalidIdException;
@@ -52,7 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public List<Employee> getEmployees3() {
+	public Optional<List<Employee>> getEmployees3() {
 		// TODO Auto-generated method stub
 		return employeeRepository.getEmployees3();
 	}

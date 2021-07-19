@@ -9,9 +9,13 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.TreeSet;
+import java.util.function.Predicate;
 
+import com.landisgyr.employeemangementsystem.dto.Department;
 import com.landisgyr.employeemangementsystem.dto.Employee;
+import com.landisgyr.employeemangementsystem.dto.EmployeeDeptDTO;
 import com.landisgyr.employeemangementsystem.utils.DBUtils;
 import com.landisgyr.employeemangementsystem.utils.IdComparator;
 
@@ -70,7 +74,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 	}
 
 	@Override
-	public List<Employee> getEmployees3() {
+	public Optional<List<Employee>> getEmployees3() {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		List<Employee> employees = new ArrayList<>();
@@ -99,7 +103,10 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 				employees.add(employee);
 
 			}
-			return employees;
+			if(employees.isEmpty())
+			return Optional.empty();
+			else 
+				return Optional.of(employees);
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -114,7 +121,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
 			DBUtils.closeConnection(connection);
 		}
-		return employees;
+		return Optional.empty();
 
 	}
 
@@ -127,6 +134,37 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 	@Override
 	public String deleteEmployeeById(String empId) {
 		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String deleteQuery = "delete from employee where empid=?";
+		try {
+			connection = DBUtils.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(deleteQuery);
+			preparedStatement.setString(1, empId);
+			int res = preparedStatement.executeUpdate();
+
+			if (res >= 1) {
+				connection.commit();
+				return "success";
+			} else
+				return "fail";
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} finally {
+
+			DBUtils.closeConnection(connection);
+		}
+
+	
+		
 		return null;
 	}
 
@@ -142,4 +180,67 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 		return null;
 	}
 
+	@Override
+	public Optional<List<EmployeeDeptDTO>> getEmployeeDetailsWithDept() {
+		Connection connection = null;
+		List<EmployeeDeptDTO> employees = new ArrayList<>();
+		PreparedStatement preparedStatement = null;
+		String insertQuery = "select * from employee e , department d where e.deptid= d.deptid";
+		try {
+			connection = DBUtils.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(insertQuery);
+
+			ResultSet res = preparedStatement.executeQuery();
+			// all records are stored in resultset obejct
+			// cursor is available to traverse the result set .
+			// initially cursor / traverser will be placed just before the 1st record.
+			// when we will call next method for the 1st time then it will start traversing
+			// from 1st record.
+
+			while (res.next()) {
+
+				Employee employee = new Employee();
+				Department department = new Department();
+				EmployeeDeptDTO deptDTO  = new EmployeeDeptDTO();
+				
+				employee.setEmpId(res.getString("empid"));// column name
+				// here we can provide the column number as well but we should prefer that.
+				employee.setEmpFirstName(res.getString("empfirstname"));
+				employee.setEmpLastName(res.getString("emplastname"));
+				employee.setEmpSalary(res.getFloat("empsalary"));
+				deptDTO.setDepartment(department);
+				deptDTO.setEmployee(employee);
+				employees.add(deptDTO);
+
+			}
+			if(employees.isEmpty())
+			return Optional.empty();
+			else 
+				return Optional.of(employees);
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} finally {
+
+			this.getEmpsByJava8(null)
+			DBUtils.closeConnection(connection);
+		}
+		return Optional.empty();
+
+
+	}
+	
+
+	
+	public List<Employee> getEmpsByJava8(Predicate<String> p){
+		return null;
+	}
 }
