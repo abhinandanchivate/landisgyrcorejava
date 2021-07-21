@@ -1,5 +1,6 @@
 package com.landisgyr.employeemangementsystem.repository;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,9 +20,49 @@ import com.landisgyr.employeemangementsystem.dto.EmployeeDeptDTO;
 import com.landisgyr.employeemangementsystem.utils.DBUtils;
 import com.landisgyr.employeemangementsystem.utils.IdComparator;
 
-public class EmployeeRepositoryImpl implements EmployeeRepository {
+public class EmployeeRepositoryImpl implements EmployeeRepository , Serializable , Cloneable{
 
 	// TreeSet<Employee> employees = new TreeSet<>(new IdComparator());
+
+	public Object newInstance() throws CloneNotSupportedException  {
+		
+		throw new CloneNotSupportedException();
+	}
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		throw new CloneNotSupportedException();
+	}
+	
+	private EmployeeRepositoryImpl() {
+		// TODO Auto-generated constructor stub
+		System.setSecurityManager(new SecurityManager());
+		System.out.println("inside the constructor");
+		if(employeeRepository!=null) {
+			throw new InstantiationError();
+		}
+	
+	}
+
+	static EmployeeRepositoryImpl employeeRepository;
+
+	public static EmployeeRepository getInstance() {
+		
+
+		if (employeeRepository == null) {
+			synchronized (EmployeeRepositoryImpl.class) {
+				if (employeeRepository == null) {
+					System.out.println("method called");
+					employeeRepository = new EmployeeRepositoryImpl();
+					return employeeRepository;
+				}
+				else 
+					return employeeRepository;
+			}
+
+		} 
+		return employeeRepository;
+	}
 
 	public String addEmployee(Employee employee) {
 
@@ -103,9 +144,9 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 				employees.add(employee);
 
 			}
-			if(employees.isEmpty())
-			return Optional.empty();
-			else 
+			if (employees.isEmpty())
+				return Optional.empty();
+			else
 				return Optional.of(employees);
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -163,8 +204,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 			DBUtils.closeConnection(connection);
 		}
 
-	
-		
 		return null;
 	}
 
@@ -202,8 +241,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
 				Employee employee = new Employee();
 				Department department = new Department();
-				EmployeeDeptDTO deptDTO  = new EmployeeDeptDTO();
-				
+				EmployeeDeptDTO deptDTO = new EmployeeDeptDTO();
+
 				employee.setEmpId(res.getString("empid"));// column name
 				// here we can provide the column number as well but we should prefer that.
 				employee.setEmpFirstName(res.getString("empfirstname"));
@@ -214,9 +253,9 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 				employees.add(deptDTO);
 
 			}
-			if(employees.isEmpty())
-			return Optional.empty();
-			else 
+			if (employees.isEmpty())
+				return Optional.empty();
+			else
 				return Optional.of(employees);
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -230,17 +269,13 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 			}
 		} finally {
 
-			this.getEmpsByJava8(null)
 			DBUtils.closeConnection(connection);
 		}
 		return Optional.empty();
 
-
 	}
-	
 
-	
-	public List<Employee> getEmpsByJava8(Predicate<String> p){
+	public List<Employee> getEmpsByJava8(Predicate<String> p) {
 		return null;
 	}
 }

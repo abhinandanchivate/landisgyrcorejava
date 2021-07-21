@@ -7,7 +7,7 @@ import com.landisgyr.employeemangementsystem.dto.Employee;
 import com.landisgyr.employeemangementsystem.dto.EmployeeDeptDTO;
 import com.landisgyr.employeemangementsystem.exception.InvalidIdException;
 
-public interface EmployeeRepository {
+public interface EmployeeRepository extends Cloneable{
 	
 	public String addEmployee(Employee employee) throws InvalidIdException;
 	public Employee[] getEmployees() ;
@@ -19,5 +19,6 @@ public interface EmployeeRepository {
 	
 	public String deleteAllEmployees() ;
 	public Optional<List<EmployeeDeptDTO>> getEmployeeDetailsWithDept();
+	
 
 }

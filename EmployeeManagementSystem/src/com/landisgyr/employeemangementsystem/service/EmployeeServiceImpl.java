@@ -10,7 +10,7 @@ import com.landisgyr.employeemangementsystem.repository.EmployeeRepositoryImpl;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
-	EmployeeRepository employeeRepository  = new EmployeeRepositoryImpl();
+	EmployeeRepository employeeRepository  = EmployeeRepositoryImpl.getInstance();
 	// have we created repo object.
 	public String addEmployee(Employee employee) throws InvalidIdException {
 		// background verification
